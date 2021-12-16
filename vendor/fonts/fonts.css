@@ -1,0 +1,34 @@
+/* inter-regular - latin */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  src: 
+      /* IE6-IE8 */ url("./inter-v7-latin-regular.woff2") format("woff2");
+}
+/* inter-600 - latin */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./inter-v7-latin-600.eot"); /* IE9 Compat Modes */
+  src:
+      /* IE6-IE8 */ url("./inter-v7-latin-600.woff2") format("woff2");
+}
+/* inter-900 - latin */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  src: 
+      /* IE6-IE8 */ url("./inter-v7-latin-900.woff2") format("woff2");
+}
+
+/* inter-500 - latin */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  src: 
+        /* IE6-IE8 */ url("./inter-v7-latin-500.woff2") format("woff2");
+}
