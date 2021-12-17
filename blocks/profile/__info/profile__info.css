@@ -5,3 +5,15 @@
   text-align: left;
   align-items: flex-start;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__info {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__info {
+    gap: 14px;
+  }
+}
