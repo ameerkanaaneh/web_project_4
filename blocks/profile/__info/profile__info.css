@@ -1,4 +1,7 @@
 .profile__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   text-align: left;
-  max-width: fit-content;
+  align-items: flex-start;
 }
