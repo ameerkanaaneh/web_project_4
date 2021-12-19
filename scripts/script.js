@@ -1,10 +1,10 @@
-let popup = document.querySelector(".popup");
-let popupCloseBtn = document.querySelector(".popup__close");
-let profileEditBtn = document.querySelector(".profile__edit-button");
-let inputs = document.querySelectorAll(".popup__input");
-let popupForm = document.querySelector(".popup__container");
-let profileName = document.querySelector(".profile__name");
-let profileInterest = document.querySelector(".profile__interest");
+const popup = document.querySelector(".popup");
+const popupCloseBtn = document.querySelector(".popup__close");
+const profileEditBtn = document.querySelector(".profile__edit-button");
+const inputs = document.querySelectorAll(".popup__input");
+const popupForm = document.querySelector(".popup__container");
+const profileName = document.querySelector(".profile__name");
+const profileInterest = document.querySelector(".profile__interest");
 
 profileEditBtn.addEventListener("click", openPopup);
 
