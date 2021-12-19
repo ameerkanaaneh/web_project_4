@@ -9,3 +9,8 @@
     max-width: 18px;
   }
 }
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
