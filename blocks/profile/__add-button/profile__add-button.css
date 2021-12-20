@@ -1,11 +1,19 @@
 .profile__add-button {
   text-align: right;
+  background-image: url("../../../images/Vector\(2\).svg");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-color: #000;
+  background-size: 22px;
+  min-height: 50px;
+  min-width: 150px;
+  background-color: #000;
+  border: 2px solid white;
 }
 
 @media screen and (max-width: 320px) {
   .profile__add-button {
     width: 100%;
-    max-height: 50px;
   }
 }
 

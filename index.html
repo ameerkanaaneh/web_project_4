@@ -12,10 +12,9 @@
     <header class="header">
       <img
         class="header__title"
-        src="./images/Vector(1).png"
+        src="./images/Vector(1).svg"
         alt="around the us"
       />
-      <hr class="header__line" />
     </header>
     <main>
       <section class="profile">
@@ -28,22 +27,18 @@
           <div class="profile__info">
             <div class="profile__head">
               <h1 class="profile__name">Jacques Cousteau</h1>
-              <img
+              <button
+                type="button"
                 class="profile__edit-button"
                 src="./images/EditButton.png"
-                alt="edit button"
-              />
+              ></button>
             </div>
 
             <p class="profile__interest">Explorer</p>
           </div>
         </div>
 
-        <img
-          class="profile__add-button"
-          src="./images/AddButton.png"
-          alt="add button"
-        />
+        <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements">
         <div class="element">
@@ -54,11 +49,7 @@
           />
           <div class="element__box">
             <h2 class="element__name">Yosemite Valley</h2>
-            <img
-              class="element__like"
-              src="./images/Vector.svg"
-              alt="heart button"
-            />
+            <button type="button" class="element__like"></button>
           </div>
         </div>
 
@@ -70,11 +61,7 @@
           />
           <div class="element__box">
             <h2 class="element__name">Lake Louise</h2>
-            <img
-              class="element__like"
-              src="./images/Vector.svg"
-              alt="heart button"
-            />
+            <button type="button" class="element__like"></button>
           </div>
         </div>
 
@@ -86,11 +73,7 @@
           />
           <div class="element__box">
             <h2 class="element__name">Bald Mountains</h2>
-            <img
-              class="element__like"
-              src="./images/Vector.svg"
-              alt="heart button"
-            />
+            <button type="button" class="element__like"></button>
           </div>
         </div>
 
@@ -102,11 +85,7 @@
           />
           <div class="element__box">
             <h2 class="element__name">Latemar</h2>
-            <img
-              class="element__like"
-              src="./images/Vector.svg"
-              alt="heart button"
-            />
+            <button type="button" class="element__like"></button>
           </div>
         </div>
 
@@ -118,11 +97,7 @@
           />
           <div class="element__box">
             <h2 class="element__name">Vanoise Nationa...</h2>
-            <img
-              class="element__like"
-              src="./images/Vector.svg"
-              alt="heart button"
-            />
+            <button type="button" class="element__like"></button>
           </div>
         </div>
 
@@ -134,44 +109,35 @@
           />
           <div class="element__box">
             <h2 class="element__name">Lago di Braies</h2>
-            <img
-              class="element__like"
-              src="./images/Vector.svg"
-              alt="heart button"
-            />
+            <button type="button" class="element__like"></button>
           </div>
         </div>
       </section>
       <section class="popup">
-        <form class="popup__container">
-          <img
-            class="popup__close"
-            src="./images/CloseIcon.png"
-            alt="close icon"
-          />
+        <div class="popup__container">
+          <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Edit profile</h3>
-          <fieldset class="popup__fields">
-            <label class="popup__field">
+          <form class="popup__form" name="profile">
+            <fieldset class="popup__fields">
               <input
                 class="popup__input"
-                value="Jacques Cousteau"
+                value=""
                 type="text"
                 id="name"
                 name="name"
               />
-            </label>
-            <label class="popup__field">
+
               <input
-                value="Explorer"
+                value=""
                 class="popup__input"
                 type="text"
                 id="hobby"
                 name="hobby"
               />
-            </label>
-            <input class="popup__save-button" type="submit" value="Save" />
-          </fieldset>
-        </form>
+              <input class="popup__save-button" type="submit" value="Save" />
+            </fieldset>
+          </form>
+        </div>
       </section>
     </main>
     <footer class="footer">

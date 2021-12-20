@@ -2,6 +2,13 @@
   position: absolute;
   right: -35px;
   top: -35px;
+  background-image: url("../../../images/CloseIcon.png");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  min-width: 40px;
+  min-height: 40px;
+  border: none;
+  background-color: unset;
 }
 
 @media screen and (max-width: 320px) {

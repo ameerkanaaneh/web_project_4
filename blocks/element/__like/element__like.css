@@ -1,3 +1,15 @@
+.element__like {
+  background-image: url("../../../images/Vector.svg");
+  background-repeat: no-repeat;
+  min-width: 21px;
+  background-position: 50%;
+  background-color: none;
+  background-size: 21px;
+  border: none;
+  padding: 0;
+  background-color: white;
+}
+
 .element__like:hover {
   opacity: 0.5;
   cursor: pointer;

@@ -7,4 +7,11 @@
   color: white;
   margin: 0;
   position: relative;
+  padding: 0 50px;
+}
+
+@media screen and (max-width: 320px) {
+  .page {
+    padding: 0;
+  }
 }

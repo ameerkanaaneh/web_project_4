@@ -1,9 +1,3 @@
 .header__title {
-  position: relative;
-  left: 0;
-}
-@media screen and (max-width: 320px) {
-  .header__title {
-    left: 27px;
-  }
+  text-align: left;
 }
