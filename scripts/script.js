@@ -1,10 +1,26 @@
-const popup = document.querySelector(".popup");
-const popupCloseBtn = document.querySelector(".popup__close");
+const popup = document.querySelectorAll(".popup");
+const profilePopup = popup[0];
+const cardPopup = popup[1];
+
+const popupCloseBtn = document.querySelectorAll(".popup__close");
+const profilePopupCloseBtn = popupCloseBtn[0];
+const CardPopupCloseBtn = popupCloseBtn[1];
+
 const profileEditBtn = document.querySelector(".profile__edit-button");
-const inputs = document.querySelectorAll(".popup__input");
-const popupForm = document.querySelector(".popup__form");
+const profileAddBtn = document.querySelector(".profile__add-button");
+
+const inputs = Array.from(document.querySelectorAll(".popup__input"));
+const profileInputs = inputs.slice(0, 2);
+const cardInputs = inputs.slice(2);
+
+const popupForm = document.querySelectorAll(".popup__form");
+const profilePopupForm = popupForm[0];
+const cardPopupForm = popupForm[1];
+
 const profileName = document.querySelector(".profile__name");
 const profileInterest = document.querySelector(".profile__interest");
+
+const elementsSection = document.querySelector(".elements");
 
 const initialCards = [
   {
@@ -32,11 +48,8 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg",
   },
 ];
-const elementsSection = document.querySelector(".elements");
 
-console.log(elementsSection);
-
-initialCards.forEach((card) => {
+initialCards.reverse().forEach((card) => {
   appendElement(card.link, card.name);
 });
 
@@ -52,23 +65,23 @@ function appendElement(url, name) {
   nameElement.textContent = name;
   imageElement.alt = name + " city";
 
-  elementsSection.append(element);
+  elementsSection.prepend(element);
 }
 
-function closePopup() {
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
-function openPopup() {
+function openPopup(popup, inputs, value1 = "", value2 = "") {
   popup.classList.add("popup_opened");
-  inputs[0].value = profileName.textContent;
-  inputs[1].value = profileInterest.textContent;
+  inputs[0].value = inputs === profileInputs ? value1.textContent : "";
+  inputs[1].value = inputs === profileInputs ? value2.textContent : "";
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  let nameInput = inputs[0];
-  let jobInput = inputs[1];
+  let nameInput = profileInputs[0];
+  let jobInput = profileInputs[1];
 
   let NameInputVal = nameInput.value;
   let jobInputVal = jobInput.value;
@@ -77,10 +90,36 @@ function handleProfileFormSubmit(evt) {
 
   profileInterest.textContent = jobInputVal;
 
-  closePopup();
+  closePopup(profilePopup);
 }
-popupForm.addEventListener("submit", handleProfileFormSubmit);
 
-profileEditBtn.addEventListener("click", openPopup);
+function handleCardFormSubmit(evt) {
+  evt.preventDefault();
 
-popupCloseBtn.addEventListener("click", closePopup);
+  let cardTitle = cardInputs[0].value;
+  let cardUrl = cardInputs[1].value;
+
+  appendElement(cardUrl, cardTitle);
+
+  closePopup(cardPopup);
+}
+
+profileAddBtn.addEventListener("click", () => {
+  openPopup(cardPopup, cardInputs);
+});
+
+cardPopupForm.addEventListener("submit", handleCardFormSubmit);
+
+profilePopupForm.addEventListener("submit", handleProfileFormSubmit);
+
+profileEditBtn.addEventListener("click", () => {
+  openPopup(profilePopup, profileInputs, profileName, profileInterest);
+});
+
+profilePopupCloseBtn.addEventListener("click", () => {
+  closePopup(profilePopup);
+});
+
+CardPopupCloseBtn.addEventListener("click", () => {
+  closePopup(cardPopup);
+});
