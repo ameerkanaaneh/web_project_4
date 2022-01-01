@@ -7,7 +7,6 @@
 /* header styles */
 @import url("../blocks/header/header.css");
 @import url("../blocks/header/__title/header__title.css");
-@import url("../blocks/header/__line/header__line.css");
 
 /* profile styles */
 @import url("../blocks/profile/profile.css");
@@ -41,4 +40,3 @@
 @import url("../blocks/popup/__input/popup__input.css");
 @import url("../blocks/popup/__save-button/popup__save-button.css");
 @import url("../blocks/popup/_opened/popup_opened.css");
-@import url("../blocks/popup/__field/popup__filed.css");
