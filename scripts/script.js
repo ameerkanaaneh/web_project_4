@@ -60,6 +60,12 @@ function appendElement(url, name) {
   const nameElement = element
     .querySelector(".element__box")
     .querySelector(".element__name");
+  const deleteElement = element.querySelector(".element__delete-button");
+
+  deleteElement.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    deleteCard(evt.target.parentNode);
+  });
 
   imageElement.src = url;
   nameElement.textContent = name;
@@ -102,6 +108,10 @@ function handleCardFormSubmit(evt) {
   appendElement(cardUrl, cardTitle);
 
   closePopup(cardPopup);
+}
+
+function deleteCard(card) {
+  card.parentNode.removeChild(card);
 }
 
 profileAddBtn.addEventListener("click", () => {

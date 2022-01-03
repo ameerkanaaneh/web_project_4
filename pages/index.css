@@ -26,6 +26,7 @@
 @import url("../blocks/element/__name/element__name.css");
 @import url("../blocks/element/__box/element__box.css");
 @import url("../blocks/element/__like/element__like.css");
+@import url("../blocks/element/__delete-button/element__delete-button.css");
 
 /* footer styles */
 @import url("../blocks/footer/footer.css");
