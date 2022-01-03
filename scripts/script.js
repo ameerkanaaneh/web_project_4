@@ -61,6 +61,12 @@ function appendElement(url, name) {
     .querySelector(".element__box")
     .querySelector(".element__name");
   const deleteElement = element.querySelector(".element__delete-button");
+  const likeButton = element.querySelector(".element__like");
+
+  likeButton.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    evt.target.classList.toggle("element__like_active");
+  });
 
   deleteElement.addEventListener("click", (evt) => {
     evt.preventDefault();
