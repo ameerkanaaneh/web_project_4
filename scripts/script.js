@@ -1,10 +1,9 @@
 const popup = document.querySelectorAll(".popup");
 const profilePopup = popup[0];
 const cardPopup = popup[1];
+const imagePopup = popup[2];
 
 const popupCloseBtn = document.querySelectorAll(".popup__close");
-const profilePopupCloseBtn = popupCloseBtn[0];
-const CardPopupCloseBtn = popupCloseBtn[1];
 
 const profileEditBtn = document.querySelector(".profile__edit-button");
 const profileAddBtn = document.querySelector(".profile__add-button");
@@ -21,6 +20,9 @@ const profileName = document.querySelector(".profile__name");
 const profileInterest = document.querySelector(".profile__interest");
 
 const elementsSection = document.querySelector(".elements");
+
+const popupImageElement = document.querySelector(".popup__card-image");
+const popupNameElement = document.querySelector(".popup__name");
 
 const initialCards = [
   {
@@ -63,6 +65,15 @@ function appendElement(url, name) {
   const deleteElement = element.querySelector(".element__delete-button");
   const likeButton = element.querySelector(".element__like");
 
+  imageElement.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    popupImageElement.src = evt.target.src;
+    popupImageElement.alt = evt.target.parentNode.lastElementChild.textContent;
+    popupNameElement.textContent =
+      evt.target.parentNode.lastElementChild.textContent;
+    openPopup(imagePopup);
+  });
+
   likeButton.addEventListener("click", (evt) => {
     evt.preventDefault();
     evt.target.classList.toggle("element__like_active");
@@ -84,10 +95,12 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
-function openPopup(popup, inputs, value1 = "", value2 = "") {
+function openPopup(popup, inputs = "", value1 = "", value2 = "") {
   popup.classList.add("popup_opened");
-  inputs[0].value = inputs === profileInputs ? value1.textContent : "";
-  inputs[1].value = inputs === profileInputs ? value2.textContent : "";
+  if (inputs !== "") {
+    inputs[0].value = inputs === profileInputs ? value1.textContent : "";
+    inputs[1].value = inputs === profileInputs ? value2.textContent : "";
+  }
 }
 
 function handleProfileFormSubmit(evt) {
@@ -132,10 +145,8 @@ profileEditBtn.addEventListener("click", () => {
   openPopup(profilePopup, profileInputs, profileName, profileInterest);
 });
 
-profilePopupCloseBtn.addEventListener("click", () => {
-  closePopup(profilePopup);
-});
-
-CardPopupCloseBtn.addEventListener("click", () => {
-  closePopup(cardPopup);
+popupCloseBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    closePopup(btn.parentNode.parentNode);
+  });
 });
