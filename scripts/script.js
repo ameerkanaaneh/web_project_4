@@ -1,7 +1,6 @@
-const popup = document.querySelectorAll(".popup");
-const profilePopup = popup[0];
-const cardPopup = popup[1];
-const imagePopup = popup[2];
+const profilePopup = document.querySelector(".popup_type_profile");
+const cardPopup = document.querySelector(".popup_type_card");
+const imagePopup = document.querySelector(".popup_type_image");
 
 const popupCloseBtn = document.querySelectorAll(".popup__close");
 
@@ -12,9 +11,8 @@ const inputs = Array.from(document.querySelectorAll(".popup__input"));
 const profileInputs = inputs.slice(0, 2);
 const cardInputs = inputs.slice(2);
 
-const popupForm = document.querySelectorAll(".popup__form");
-const profilePopupForm = popupForm[0];
-const cardPopupForm = popupForm[1];
+const profilePopupForm = document.querySelector(".popup__form_type_profile");
+const cardPopupForm = document.querySelector(".popup__form_type_card");
 
 const profileName = document.querySelector(".profile__name");
 const profileInterest = document.querySelector(".profile__interest");
@@ -52,10 +50,10 @@ const initialCards = [
 ];
 
 initialCards.reverse().forEach((card) => {
-  appendElement(card.link, card.name);
+  prependElement(card.link, card.name);
 });
 
-function appendElement(url, name) {
+function createCard(url, name) {
   const elementTemplate = document.querySelector("#element").content;
   const element = elementTemplate.querySelector(".element").cloneNode(true);
   const imageElement = element.querySelector(".element__image");
@@ -81,13 +79,17 @@ function appendElement(url, name) {
 
   deleteElement.addEventListener("click", (evt) => {
     evt.preventDefault();
-    deleteCard(evt.target.parentNode);
+    element.remove();
   });
 
   imageElement.src = url;
   nameElement.textContent = name;
-  imageElement.alt = name + " city";
+  imageElement.alt = name;
+  return element;
+}
 
+function prependElement(url, name) {
+  const element = createCard(url, name);
   elementsSection.prepend(element);
 }
 
@@ -95,23 +97,24 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
-function openPopup(popup, inputs = "", value1 = "", value2 = "") {
+function openPopup(popup) {
   popup.classList.add("popup_opened");
-  if (inputs !== "") {
-    inputs[0].value = inputs === profileInputs ? value1.textContent : "";
-    inputs[1].value = inputs === profileInputs ? value2.textContent : "";
-  }
+}
+
+function fillProfileInputs() {
+  profileInputs[0].value = profileName.textContent;
+  profileInputs[1].value = profileInterest.textContent;
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  let nameInput = profileInputs[0];
-  let jobInput = profileInputs[1];
+  const nameInput = profileInputs[0];
+  const jobInput = profileInputs[1];
 
-  let NameInputVal = nameInput.value;
-  let jobInputVal = jobInput.value;
+  const nameInputVal = nameInput.value;
+  const jobInputVal = jobInput.value;
 
-  profileName.textContent = NameInputVal;
+  profileName.textContent = nameInputVal;
 
   profileInterest.textContent = jobInputVal;
 
@@ -124,17 +127,15 @@ function handleCardFormSubmit(evt) {
   let cardTitle = cardInputs[0].value;
   let cardUrl = cardInputs[1].value;
 
-  appendElement(cardUrl, cardTitle);
+  prependElement(cardUrl, cardTitle);
+
+  cardPopupForm.reset();
 
   closePopup(cardPopup);
 }
 
-function deleteCard(card) {
-  card.parentNode.removeChild(card);
-}
-
 profileAddBtn.addEventListener("click", () => {
-  openPopup(cardPopup, cardInputs);
+  openPopup(cardPopup);
 });
 
 cardPopupForm.addEventListener("submit", handleCardFormSubmit);
@@ -142,11 +143,12 @@ cardPopupForm.addEventListener("submit", handleCardFormSubmit);
 profilePopupForm.addEventListener("submit", handleProfileFormSubmit);
 
 profileEditBtn.addEventListener("click", () => {
-  openPopup(profilePopup, profileInputs, profileName, profileInterest);
+  openPopup(profilePopup);
+  fillProfileInputs();
 });
 
 popupCloseBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    closePopup(btn.parentNode.parentNode);
+    closePopup(btn.closest(".popup"));
   });
 });
