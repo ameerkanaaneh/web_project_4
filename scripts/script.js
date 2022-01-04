@@ -67,8 +67,7 @@ function createCard(url, name) {
     evt.preventDefault();
     popupImageElement.src = evt.target.src;
     popupImageElement.alt = evt.target.parentNode.lastElementChild.textContent;
-    popupNameElement.textContent =
-      evt.target.parentNode.lastElementChild.textContent;
+    popupNameElement.textContent = element.lastElementChild.textContent;
     openPopup(imagePopup);
   });
 
