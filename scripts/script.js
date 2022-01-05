@@ -68,8 +68,8 @@ function createCard(url, name) {
   imageElement.addEventListener("click", (evt) => {
     evt.preventDefault();
     popupImageElement.src = evt.target.src;
-    popupImageElement.alt = element.lastElementChild.textContent;
-    popupNameElement.textContent = element.lastElementChild.textContent;
+    popupImageElement.alt = name;
+    popupNameElement.textContent = name;
     openPopup(imagePopup);
   });
 
