@@ -2,14 +2,16 @@ const profilePopup = document.querySelector(".popup_type_profile");
 const cardPopup = document.querySelector(".popup_type_card");
 const imagePopup = document.querySelector(".popup_type_image");
 
-const popupCloseBtn = document.querySelectorAll(".popup__close");
+const popupCloseBtns = document.querySelectorAll(".popup__close");
 
 const profileEditBtn = document.querySelector(".profile__edit-button");
 const profileAddBtn = document.querySelector(".profile__add-button");
 
-const inputs = Array.from(document.querySelectorAll(".popup__input"));
-const profileInputs = inputs.slice(0, 2);
-const cardInputs = inputs.slice(2);
+const profileInputName = document.querySelector(".popup__input_type_name");
+const profileInputHobby = document.querySelector(".popup__input_type_hobby");
+
+const cardInputTitle = document.querySelector(".popup__input_type_title");
+const cardInputLink = document.querySelector(".popup__input_type_link");
 
 const profilePopupForm = document.querySelector(".popup__form_type_profile");
 const cardPopupForm = document.querySelector(".popup__form_type_card");
@@ -66,7 +68,7 @@ function createCard(url, name) {
   imageElement.addEventListener("click", (evt) => {
     evt.preventDefault();
     popupImageElement.src = evt.target.src;
-    popupImageElement.alt = evt.target.parentNode.lastElementChild.textContent;
+    popupImageElement.alt = element.lastElementChild.textContent;
     popupNameElement.textContent = element.lastElementChild.textContent;
     openPopup(imagePopup);
   });
@@ -101,17 +103,14 @@ function openPopup(popup) {
 }
 
 function fillProfileInputs() {
-  profileInputs[0].value = profileName.textContent;
-  profileInputs[1].value = profileInterest.textContent;
+  profileInputName.value = profileName.textContent;
+  profileInputHobby.value = profileInterest.textContent;
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  const nameInput = profileInputs[0];
-  const jobInput = profileInputs[1];
-
-  const nameInputVal = nameInput.value;
-  const jobInputVal = jobInput.value;
+  const nameInputVal = profileInputName.value;
+  const jobInputVal = profileInputHobby.value;
 
   profileName.textContent = nameInputVal;
 
@@ -123,8 +122,8 @@ function handleProfileFormSubmit(evt) {
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
 
-  let cardTitle = cardInputs[0].value;
-  let cardUrl = cardInputs[1].value;
+  const cardTitle = cardInputTitle.value;
+  const cardUrl = cardInputLink.value;
 
   prependElement(cardUrl, cardTitle);
 
@@ -146,7 +145,7 @@ profileEditBtn.addEventListener("click", () => {
   fillProfileInputs();
 });
 
-popupCloseBtn.forEach((btn) => {
+popupCloseBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     closePopup(btn.closest(".popup"));
   });
