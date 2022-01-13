@@ -1,6 +1,7 @@
 const profilePopup = document.querySelector(".popup_type_profile");
 const cardPopup = document.querySelector(".popup_type_card");
 const imagePopup = document.querySelector(".popup_type_image");
+const popups = document.querySelectorAll(".popup");
 
 const popupCloseBtns = document.querySelectorAll(".popup__close");
 
@@ -148,5 +149,18 @@ profileEditBtn.addEventListener("click", () => {
 popupCloseBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     closePopup(btn.closest(".popup"));
+  });
+});
+
+popups.forEach((popup) => {
+  popup.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup")) {
+      closePopup(popup);
+    }
+  });
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
   });
 });
