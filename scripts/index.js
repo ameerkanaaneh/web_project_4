@@ -158,9 +158,14 @@ popups.forEach((popup) => {
       closePopup(popup);
     }
   });
-  document.addEventListener("keydown", (evt) => {
+  function closePopupOnEsc(evt) {
     if (evt.key === "Escape") {
       closePopup(popup);
     }
-  });
+  }
+  document.addEventListener("keydown", closePopupOnEsc);
+
+  if (popup.classList.contains("popup_opened")) {
+    document.removeEventListener("keydown", closePopupOnEsc);
+  }
 });

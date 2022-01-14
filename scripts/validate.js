@@ -1,69 +1,89 @@
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  const buttonElement = formElement.querySelector(".popup__button");
-  buttonElement.disabled = true;
-  buttonElement.classList.add("popup__button_disabled");
   errorElement.textContent = errorMessage;
-  inputElement.classList.add("popup__input_type_error");
+  inputElement.classList.add(config.inputErrorClass);
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = "";
-  inputElement.classList.remove("popup__input_type_error");
+  inputElement.classList.remove(config.inputErrorClass);
 }
 
-function disableButton(formElement) {
-  const buttonElement = formElement.querySelector(".popup__button");
+function disableButton(formElement, config) {
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
   buttonElement.disabled = true;
-  buttonElement.classList.add("popup__button_disabled");
+  buttonElement.classList.add(config.inactiveButtonClass);
 }
 
-function enableButton(formElement) {
-  const buttonElement = formElement.querySelector(".popup__button");
+function enableButton(formElement, config) {
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
   buttonElement.disabled = false;
-  buttonElement.classList.remove("popup__button_disabled");
+  buttonElement.classList.remove(config.inactiveButtonClass);
 }
 
-function isValid(formElement, inputElement) {
+function isValid(formElement, inputElement, config) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-    disableButton(formElement);
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config
+    );
   } else {
-    hideInputError(formElement, inputElement);
-    if (formIsValid(formElement)) {
-      enableButton(formElement);
+    hideInputError(formElement, inputElement, config);
+  }
+}
+
+function toggleSubmitBtnState(formElement, inputElement, config) {
+  if (!inputElement.validity.valid) {
+    disableButton(formElement, config);
+  } else {
+    if (formIsValid(formElement, config)) {
+      enableButton(formElement, config);
     }
   }
 }
 
-function formIsValid(formElement) {
-  const inputsList = Array.from(formElement.querySelectorAll(".popup__input"));
+function formIsValid(formElement, config) {
+  const inputsList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
   return inputsList.every((inputElement) => {
     return inputElement.validity.valid;
   });
 }
 
-function setEventListeners(formElement) {
-  const inputsList = Array.from(formElement.querySelectorAll(".popup__input"));
+function setEventListeners(formElement, config) {
+  const inputsList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
 
   inputsList.forEach((inputElement) => {
     inputElement.addEventListener("input", (evt) => {
       evt.preventDefault();
-      isValid(formElement, inputElement);
+      toggleSubmitBtnState(formElement, inputElement, config);
+      isValid(formElement, inputElement, config);
     });
   });
 }
 
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll(".popup__form"));
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    setEventListeners(formElement);
+    setEventListeners(formElement, config);
   });
 }
 
-enableValidation();
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+});
