@@ -97,10 +97,12 @@ function prependElement(url, name) {
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupOnEsc);
 }
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupOnEsc);
 }
 
 function fillProfileInputs() {
@@ -158,14 +160,14 @@ popups.forEach((popup) => {
       closePopup(popup);
     }
   });
-  function closePopupOnEsc(evt) {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-    }
-  }
-  document.addEventListener("keydown", closePopupOnEsc);
-
-  if (popup.classList.contains("popup_opened")) {
-    document.removeEventListener("keydown", closePopupOnEsc);
-  }
 });
+
+function closePopupOnEsc(evt) {
+  if (evt.key === "Escape") {
+    popups.forEach((popup) => {
+      if (popup.classList.contains("popup_opened")) {
+        closePopup(popup);
+      }
+    });
+  }
+}

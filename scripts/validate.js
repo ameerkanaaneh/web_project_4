@@ -35,13 +35,11 @@ function isValid(formElement, inputElement, config) {
   }
 }
 
-function toggleSubmitBtnState(formElement, inputElement, config) {
-  if (!inputElement.validity.valid) {
-    disableButton(formElement, config);
+function toggleSubmitBtnState(formElement, config) {
+  if (formIsValid(formElement, config)) {
+    enableButton(formElement, config);
   } else {
-    if (formIsValid(formElement, config)) {
-      enableButton(formElement, config);
-    }
+    disableButton(formElement, config);
   }
 }
 
@@ -62,7 +60,7 @@ function setEventListeners(formElement, config) {
   inputsList.forEach((inputElement) => {
     inputElement.addEventListener("input", (evt) => {
       evt.preventDefault();
-      toggleSubmitBtnState(formElement, inputElement, config);
+      toggleSubmitBtnState(formElement, config);
       isValid(formElement, inputElement, config);
     });
   });
