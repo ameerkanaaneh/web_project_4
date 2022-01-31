@@ -52,47 +52,76 @@ const initialCards = [
   },
 ];
 
-initialCards.reverse().forEach((card) => {
-  prependElement(card.link, card.name);
-});
+class Card {
+  constructor(data, templateSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._templateSelector = templateSelector;
+  }
 
-function createCard(url, name) {
-  const elementTemplate = document.querySelector("#element").content;
-  const element = elementTemplate.querySelector(".element").cloneNode(true);
-  const imageElement = element.querySelector(".element__image");
-  const nameElement = element
-    .querySelector(".element__box")
-    .querySelector(".element__name");
-  const deleteElement = element.querySelector(".element__delete-button");
-  const likeButton = element.querySelector(".element__like");
+  _getTemplate() {
+    return document
+      .querySelector(this._templateSelector)
+      .content.querySelector(".element")
+      .cloneNode(true);
+  }
 
-  imageElement.addEventListener("click", (evt) => {
+  _handleImageClick(evt) {
     evt.preventDefault();
     popupImageElement.src = evt.target.src;
-    popupImageElement.alt = name;
-    popupNameElement.textContent = name;
+    popupImageElement.alt = this._name;
+    popupNameElement.textContent = this._name;
     openPopup(imagePopup);
-  });
+  }
 
-  likeButton.addEventListener("click", (evt) => {
+  _handleDeleteClick() {
+    this._element.remove();
+  }
+
+  _handleLikeClick(evt) {
     evt.preventDefault();
     evt.target.classList.toggle("element__like_active");
-  });
+  }
 
-  deleteElement.addEventListener("click", (evt) => {
-    evt.preventDefault();
-    element.remove();
-  });
+  _setEventListeners() {
+    this._imageElement.addEventListener("click", this._handleImageClick);
 
-  imageElement.src = url;
-  nameElement.textContent = name;
-  imageElement.alt = name;
-  return element;
+    this._deleteElement.addEventListener("click", (evt) => {
+      evt.preventDefault();
+      this._handleDeleteClick();
+    });
+
+    this._likeElement.addEventListener("click", this._handleLikeClick);
+  }
+
+  getCard() {
+    this._element = this._getTemplate();
+    this._imageElement = this._element.querySelector(".element__image");
+    this._nameElement = this._element
+      .querySelector(".element__box")
+      .querySelector(".element__name");
+    this._deleteElement = this._element.querySelector(
+      ".element__delete-button"
+    );
+    this._likeElement = this._element.querySelector(".element__like");
+
+    this._setEventListeners();
+
+    this._imageElement.src = this._link;
+    this._imageElement.alt = this._name;
+    this._nameElement.textContent = this._name;
+
+    return this._element;
+  }
 }
 
-function prependElement(url, name) {
-  const element = createCard(url, name);
-  elementsSection.prepend(element);
+initialCards.reverse().forEach((card) => {
+  prependElement(card);
+});
+
+function prependElement(data) {
+  const element = new Card(data, "#element");
+  elementsSection.prepend(element.getCard());
 }
 
 function closePopup(popup) {
@@ -128,7 +157,7 @@ function handleCardFormSubmit(evt) {
   const cardTitle = cardInputTitle.value;
   const cardUrl = cardInputLink.value;
 
-  prependElement(cardUrl, cardTitle);
+  prependElement({ name: cardTitle, link: cardUrl });
 
   cardPopupForm.reset();
 
