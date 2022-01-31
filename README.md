@@ -2,7 +2,8 @@
 
 ### Overview
 
-- Bsic JavaScript and the DOM
+- Basic JavaScript and the DOM
+- OOP Javascript
 - working with figma
 
 **Figma**
