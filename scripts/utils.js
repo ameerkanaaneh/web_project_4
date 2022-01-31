@@ -75,35 +75,11 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = nameInputVal;
 
   profileInterest.textContent = jobInputVal;
-
+  profilePopupForm.reset();
   closePopup(profilePopup);
 }
 
-function handleCardFormSubmit(evt) {
-  evt.preventDefault();
-
-  const cardTitle = cardInputTitle.value;
-  const cardUrl = cardInputLink.value;
-
-  prependElement({ name: cardTitle, link: cardUrl });
-
-  cardPopupForm.reset();
-
-  closePopup(cardPopup);
-}
-
-profileAddBtn.addEventListener("click", () => {
-  openPopup(cardPopup);
-});
-
-
-
 profilePopupForm.addEventListener("submit", handleProfileFormSubmit);
-
-profileEditBtn.addEventListener("click", () => {
-  openPopup(profilePopup);
-  fillProfileInputs();
-});
 
 popupCloseBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -151,4 +127,5 @@ export {
   initialCards,
   closePopup,
   openPopup,
+  fillProfileInputs,
 };
