@@ -29,18 +29,20 @@ const settings = {
   errorClass: "popup__error_visible",
 };
 
+const cardFormValidator = new FormValidator(settings, cardPopupForm);
+cardFormValidator.enableValidation();
+
+const profileFormValidator = new FormValidator(settings, profilePopupForm);
+profileFormValidator.enableValidation();
+
 profileAddBtn.addEventListener("click", () => {
   openPopup(cardPopup);
-  const cardFormValidator = new FormValidator(settings, cardPopupForm);
   cardFormValidator.disableButton();
-  cardFormValidator.enableValidation();
 });
 
 profileEditBtn.addEventListener("click", () => {
   openPopup(profilePopup);
   fillProfileInputs();
-  const profileFormValidator = new FormValidator(settings, profilePopupForm);
-  profileFormValidator.enableValidation();
 });
 
 function handleCardFormSubmit(evt) {

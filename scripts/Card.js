@@ -21,10 +21,7 @@ export default class Card {
     evt.preventDefault();
     popupImageElement.src = evt.target.src;
     popupImageElement.alt = this._name;
-    popupNameElement.textContent = evt.target
-      .closest(".element")
-      .querySelector(".element__box")
-      .querySelector(".element__name").textContent;
+    popupNameElement.textContent = this._name;
     openPopup(imagePopup);
   }
 
@@ -38,7 +35,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._imageElement.addEventListener("click", this._handleImageClick);
+    this._imageElement.addEventListener("click", (evt) =>
+      this._handleImageClick(evt)
+    );
 
     this._deleteElement.addEventListener("click", (evt) => {
       evt.preventDefault();
