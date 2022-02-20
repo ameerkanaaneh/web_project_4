@@ -47,7 +47,6 @@ export default class FormValidator {
   }
 
   _formIsValid() {
-    console.log(this._inputsList);
     return this._inputsList.every((inputElement) => {
       return inputElement.validity.valid && inputElement.value !== "";
     });

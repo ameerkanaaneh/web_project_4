@@ -1,66 +1,96 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 import {
+  profileInterest,
+  profileName,
   profileAddBtn,
   profilePopupForm,
   profileEditBtn,
-  openPopup,
-  cardPopup,
-  profilePopup,
-  cardInputTitle,
-  cardInputLink,
   cardPopupForm,
-  elementsSection,
   fillProfileInputs,
   initialCards,
-  closePopup,
+  settings,
 } from "./utils.js";
 
-initialCards.reverse().forEach((card) => {
-  prependElement(card);
-});
+// userInfo
+const userInfo = new UserInfo("", "");
 
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+// elements section instance
+const elementsSection = new Section(
+  {
+    items: initialCards,
+    renderer: (cardItem) => {
+      const card = new Card(cardItem, "#element", handleCardClick);
+      const cardElement = card.getCard();
+      elementsSection.addItem(cardElement);
+    },
+  },
+  ".elements"
+);
+// to add markup to the dom
+elementsSection.renderItems();
 
+// card popup instance of the PopupWithForm class
+const cardPopup = new PopupWithForm(".popup_type_card", handleCardFormSubmit);
+
+// profile popup instance of the PopupWithForm class
+const profilePopup = new PopupWithForm(
+  ".popup_type_profile",
+  handleProfileFormSubmit
+);
+
+// card form validator
 const cardFormValidator = new FormValidator(settings, cardPopupForm);
 cardFormValidator.enableValidation();
 
+// profile form validator
 const profileFormValidator = new FormValidator(settings, profilePopupForm);
 profileFormValidator.enableValidation();
 
+// add a click event listener for the add button
 profileAddBtn.addEventListener("click", () => {
-  openPopup(cardPopup);
+  cardPopup.openPopup();
   cardFormValidator.disableButton();
+  cardPopup.setEventListeners();
 });
 
+// add a click event listener for the edit button
 profileEditBtn.addEventListener("click", () => {
-  openPopup(profilePopup);
+  profilePopup.openPopup();
   fillProfileInputs();
+  profilePopup.setEventListeners();
 });
 
-function handleCardFormSubmit(evt) {
-  evt.preventDefault();
-
-  const cardTitle = cardInputTitle.value;
-  const cardUrl = cardInputLink.value;
-
-  prependElement({ name: cardTitle, link: cardUrl });
-
-  cardPopupForm.reset();
-
-  closePopup(cardPopup);
+// card form submit handler
+function handleCardFormSubmit(data) {
+  const { title, image_link } = data;
+  cardPopup.closePopup();
+  const card = new Card(
+    { name: title, link: image_link },
+    "#element",
+    handleCardClick
+  );
+  elementsSection.addItem(card.getCard());
 }
 
-function prependElement(data) {
-  const element = new Card(data, "#element");
-  elementsSection.prepend(element.getCard());
+// profile form submit handler
+function handleProfileFormSubmit(data) {
+  userInfo.setUserInfo(data.name, data.hobby);
+  const { userName, userJob } = userInfo.getUserInfo();
+
+  profileName.textContent = userName;
+  profileInterest.textContent = userJob;
+  profilePopup.closePopup();
+  fillProfileInputs();
 }
 
-cardPopupForm.addEventListener("submit", handleCardFormSubmit);
+// card click handler
+function handleCardClick(src, name) {
+  const cardImagePopup = new PopupWithImage(".popup_type_image");
+  cardImagePopup.openPopup(src, name);
+  cardImagePopup.setEventListeners();
+}

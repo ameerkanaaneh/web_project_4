@@ -1,8 +1,3 @@
-import { imagePopup, openPopup } from "./utils.js";
-
-const popupImageElement = document.querySelector(".popup__card-image");
-
-const popupNameElement = document.querySelector(".popup__name");
 export default class Card {
   constructor({ name, link }, templateSelector, handleCardClick) {
     this._name = name;
@@ -20,7 +15,7 @@ export default class Card {
 
   _handleImageClick(evt) {
     evt.preventDefault();
-    this.handleCardClick(evt.target.src, this._name);
+    this._handleCardClick(evt.target.src, this._name);
   }
 
   _handleDeleteClick() {
