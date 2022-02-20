@@ -3,8 +3,9 @@
 ### Overview
 
 - Basic JavaScript and the DOM
-- OOP Javascript
+- OOP Javascript & refactoring
 - working with figma
+- webpack and Babel
 
 **Figma**
 
