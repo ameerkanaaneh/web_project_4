@@ -7,7 +7,7 @@ export default class PopupWithImage extends Popup {
 
   openPopup(src, name) {
     super.openPopup();
-    this._addImageAndCaption(srx, name);
+    this._addImageAndCaption(src, name);
   }
 
   _addImageAndCaption(src, name) {
@@ -15,6 +15,6 @@ export default class PopupWithImage extends Popup {
     this._popupNameElement = document.querySelector(".popup__name");
     this._popupImageElement.src = src;
     this._popupImageElement.alt = name;
-    this._popupNameElement = name;
+    this._popupNameElement.textContent = name;
   }
 }
