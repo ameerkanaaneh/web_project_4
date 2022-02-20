@@ -4,10 +4,11 @@ const popupImageElement = document.querySelector(".popup__card-image");
 
 const popupNameElement = document.querySelector(".popup__name");
 export default class Card {
-  constructor(data, templateSelector) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({ name, link }, templateSelector, handleCardClick) {
+    this._name = name;
+    this._link = link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -19,10 +20,7 @@ export default class Card {
 
   _handleImageClick(evt) {
     evt.preventDefault();
-    popupImageElement.src = evt.target.src;
-    popupImageElement.alt = this._name;
-    popupNameElement.textContent = this._name;
-    openPopup(imagePopup);
+    this.handleCardClick(evt.target.src, this._name);
   }
 
   _handleDeleteClick() {
