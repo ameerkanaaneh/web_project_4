@@ -47,14 +47,9 @@ const settings = {
   errorClass: "popup__error_visible",
 };
 
-// a function to fill the inputs after resetting the profile form
-function fillProfileInputs() {
-  profileInputName.value = profileName.textContent;
-  profileInputHobby.value = profileInterest.textContent;
-}
-
 export {
-  fillProfileInputs,
+  profileInputName,
+  profileInputHobby,
   cardPopupForm,
   profilePopupForm,
   initialCards,

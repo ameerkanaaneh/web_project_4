@@ -38,7 +38,7 @@ export default class FormValidator {
     this._buttonElement.classList.remove(this._inactiveButtonClass);
   }
 
-  _isValid(inputElement) {
+  _checkIfValid(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -46,14 +46,14 @@ export default class FormValidator {
     }
   }
 
-  _formIsValid() {
+  _checkIfFormValid() {
     return this._inputsList.every((inputElement) => {
       return inputElement.validity.valid && inputElement.value !== "";
     });
   }
 
   _toggleSubmitBtnState() {
-    if (this._formIsValid()) {
+    if (this._checkIfFormValid()) {
       this._enableButton();
     } else {
       this.disableButton();
@@ -68,7 +68,7 @@ export default class FormValidator {
       inputElement.addEventListener("input", (evt) => {
         evt.preventDefault();
         this._toggleSubmitBtnState();
-        this._isValid(inputElement);
+        this._checkIfValid(inputElement);
       });
     });
   }

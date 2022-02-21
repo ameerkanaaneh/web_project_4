@@ -7,28 +7,32 @@ import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import UserInfo from "./components/UserInfo.js";
 import {
-  profileInterest,
-  profileName,
+  profileInputName,
+  profileInputHobby,
   profileAddBtn,
   profilePopupForm,
   profileEditBtn,
   cardPopupForm,
-  fillProfileInputs,
   initialCards,
   settings,
-} from "./utils.js";
+} from "./utils/constants.js";
 
 // userInfo
-const userInfo = new UserInfo("", "");
+const userInfo = new UserInfo({
+  userNameSelector: ".profile__name",
+  userJobSelector: ".profile__interest",
+});
+
+// card with image popup instance
+const cardImagePopup = new PopupWithImage(".popup_type_image");
+cardImagePopup.setEventListeners();
 
 // elements section instance
 const elementsSection = new Section(
   {
     items: initialCards,
     renderer: (cardItem) => {
-      const card = new Card(cardItem, "#element", handleCardClick);
-      const cardElement = card.getCard();
-      elementsSection.addItem(cardElement);
+      renderCard(cardItem);
     },
   },
   ".elements"
@@ -38,12 +42,14 @@ elementsSection.renderItems();
 
 // card popup instance of the PopupWithForm class
 const cardPopup = new PopupWithForm(".popup_type_card", handleCardFormSubmit);
+cardPopup.setEventListeners();
 
 // profile popup instance of the PopupWithForm class
 const profilePopup = new PopupWithForm(
   ".popup_type_profile",
   handleProfileFormSubmit
 );
+profilePopup.setEventListeners();
 
 // card form validator
 const cardFormValidator = new FormValidator(settings, cardPopupForm);
@@ -57,42 +63,42 @@ profileFormValidator.enableValidation();
 profileAddBtn.addEventListener("click", () => {
   cardPopup.openPopup();
   cardFormValidator.disableButton();
-  cardPopup.setEventListeners();
 });
 
 // add a click event listener for the edit button
 profileEditBtn.addEventListener("click", () => {
   profilePopup.openPopup();
   fillProfileInputs();
-  profilePopup.setEventListeners();
 });
 
 // card form submit handler
 function handleCardFormSubmit(data) {
   const { title, image_link } = data;
   cardPopup.closePopup();
-  const card = new Card(
-    { name: title, link: image_link },
-    "#element",
-    handleCardClick
-  );
-  elementsSection.addItem(card.getCard());
+  renderCard({ name: title, link: image_link });
 }
 
 // profile form submit handler
 function handleProfileFormSubmit(data) {
   userInfo.setUserInfo(data.name, data.hobby);
-  const { userName, userJob } = userInfo.getUserInfo();
-
-  profileName.textContent = userName;
-  profileInterest.textContent = userJob;
   profilePopup.closePopup();
-  fillProfileInputs();
 }
 
 // card click handler
 function handleCardClick(src, name) {
-  const cardImagePopup = new PopupWithImage(".popup_type_image");
   cardImagePopup.openPopup(src, name);
-  cardImagePopup.setEventListeners();
+}
+
+// rendering a card
+function renderCard(cardData) {
+  const card = new Card(cardData, "#element", handleCardClick);
+  const cardElement = card.getCard();
+  elementsSection.addItem(cardElement);
+}
+
+// a function to fill the inputs after resetting the profile form
+function fillProfileInputs() {
+  const { userName, userJob } = userInfo.getUserInfo();
+  profileInputName.value = userName.textContent;
+  profileInputHobby.value = userJob.textContent;
 }
