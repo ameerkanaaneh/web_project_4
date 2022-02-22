@@ -99,6 +99,6 @@ function renderCard(cardData) {
 // a function to fill the inputs after resetting the profile form
 function fillProfileInputs() {
   const { userName, userJob } = userInfo.getUserInfo();
-  profileInputName.value = userName.textContent;
-  profileInputHobby.value = userJob.textContent;
+  profileInputName.value = userName;
+  profileInputHobby.value = userJob;
 }
