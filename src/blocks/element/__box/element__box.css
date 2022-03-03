@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* max-width: 246px; */
   vertical-align: center;
-  text-align: center;
+  align-items: center;
   margin: 25px 15px 31px 21px;
 }
