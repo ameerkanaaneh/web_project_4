@@ -6,9 +6,14 @@ const profileInputHobby = document.querySelector(".popup__input_type_hobby");
 
 const profilePopupForm = document.querySelector(".popup__form_type_profile");
 const cardPopupForm = document.querySelector(".popup__form_type_card");
+const avatarPopupForm = document.querySelector(".popup__form_type_avatar");
 
 const profileName = document.querySelector(".profile__name");
 const profileInterest = document.querySelector(".profile__interest");
+
+const profileOverlayContainer = document.querySelector(
+  ".profile__overlay-container"
+);
 
 const initialCards = [
   {
@@ -58,4 +63,6 @@ export {
   profileName,
   profileInterest,
   settings,
+  profileOverlayContainer,
+  avatarPopupForm,
 };

@@ -1,0 +1,10 @@
+.profile__overlay-container {
+  position: relative;
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.profile__overlay-container:hover .profile__overlay {
+  opacity: 1;
+  cursor: pointer;
+}

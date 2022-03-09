@@ -18,11 +18,15 @@
     <main>
       <section class="profile">
         <div class="profile__container">
-          <img
-            src="<%=require('./images/image.jpg')%>"
-            alt="profile picture"
-            class="profile__image"
-          />
+          <div class="profile__overlay-container">
+            <img
+              src="<%=require('./images/image.jpg')%>"
+              alt="profile picture"
+              class="profile__image"
+            />
+            <div class="profile__overlay"></div>
+          </div>
+
           <div class="profile__info">
             <div class="profile__head">
               <h1 class="profile__name">Jacques Cousteau</h1>
@@ -145,8 +149,47 @@
 
       <section class="popup popup_type_confirm">
         <div class="popup__container">
-          <h2 class="popup__header">Are you sure?</h2>
-          <button class="popup__confirm" type="submit">Yes</button>
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Are you sure?</h3>
+          <form
+            novalidate
+            class="popup__form popup__form_type_confirm"
+            name="confirm"
+          >
+            <fieldset class="popup__fields">
+              <input
+                class="popup__button popup__button_confirm"
+                type="submit"
+                value="Yes"
+              />
+            </fieldset>
+          </form>
+        </div>
+      </section>
+
+      <section class="popup popup_type_avatar">
+        <div class="popup__container">
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Change profile picture</h3>
+          <form
+            novalidate
+            class="popup__form popup__form_type_avatar"
+            name="avatar"
+          >
+            <fieldset class="popup__fields">
+              <input
+                class="popup__input popup__input_type_url"
+                placeholder="profile image link"
+                value=""
+                type="url"
+                id="url-input"
+                required
+                name="url"
+              />
+              <span class="url-input-error popup__input-error"></span>
+              <input class="popup__button" type="submit" value="Save" />
+            </fieldset>
+          </form>
         </div>
       </section>
     </main>
