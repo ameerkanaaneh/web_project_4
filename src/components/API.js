@@ -27,9 +27,7 @@ export default class API {
   }
 
   loadData() {
-    return Promise.all([this.loadUserInfo, this.getInitialCards]).then(
-      (result) => console.log(result)
-    );
+    return Promise.all([this.loadUserInfo, this.getInitialCards]);
   }
 
   editProfileData(name, about) {

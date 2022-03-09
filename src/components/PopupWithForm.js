@@ -43,10 +43,8 @@ export default class PopupWithForm extends Popup {
   renderLoading(isLoading) {
     if (isLoading) {
       this._popup.querySelector(".popup__button").value = "Saving...";
-      console.log(this._popup.querySelector(".popup__button").value);
     } else {
       this._popup.querySelector(".popup__button").value = this._buttonValue;
-      console.log(this._popup.querySelector(".popup__button").value);
     }
   }
 
