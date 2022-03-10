@@ -7,27 +7,20 @@ export default class API {
   loadUserInfo() {
     return fetch(`${this.url}/users/me`, {
       headers: { authorization: this.headers.authorization },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
   }
 
   getInitialCards() {
     return fetch(`${this.url}/cards`, {
       headers: { authorization: this.headers.authorization },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
-  }
-
-  loadData() {
-    return Promise.all([this.loadUserInfo, this.getInitialCards]);
+    }).then(this._checkResponse);
   }
 
   editProfileData(name, about) {
@@ -41,12 +34,7 @@ export default class API {
         name: name,
         about: about,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   addNewCard(name, link) {
@@ -60,12 +48,7 @@ export default class API {
         name: name,
         link: link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   deleteCard(id) {
@@ -79,12 +62,7 @@ export default class API {
         likes: [],
         _id: id,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   likeCard(id) {
@@ -97,12 +75,7 @@ export default class API {
       body: JSON.stringify({
         _id: id,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
   unlikeCard(id) {
     return fetch(`${this.url}/cards/likes/${id}`, {
@@ -114,12 +87,7 @@ export default class API {
       body: JSON.stringify({
         _id: id,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
   changeProfileAvatar(link) {
     return fetch(`${this.url}/users/me/avatar`, {
@@ -131,11 +99,6 @@ export default class API {
       body: JSON.stringify({
         avatar: link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 }

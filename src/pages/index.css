@@ -53,3 +53,4 @@
 @import url("../blocks/popup/__button/popup__button_disabled.css");
 @import url("../blocks/popup/__button/_confirm/popup__button_confirm.css");
 @import url("../blocks/popup/__form/popup__form.css");
+@import url("../blocks/popup/__container/popup__container_confirm.css");

@@ -11,7 +11,7 @@
   background-color: unset;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 520px) {
   .popup__close {
     top: -50px;
     right: 0;

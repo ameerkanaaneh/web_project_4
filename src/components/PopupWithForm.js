@@ -6,14 +6,11 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector(".popup__form");
     this._buttonValue = this._popup.querySelector(".popup__button").value;
+    this._inputList = this._popup.querySelectorAll(".popup__input");
+    this._button = this._popup.querySelector(".popup__button");
   }
 
   _getInputValues() {
-    // Get all field elements
-
-    this._inputList = this._popup.querySelectorAll(".popup__input");
-
-    // Create an empty object
     this._formValues = {};
 
     // Add the values of the fields to this object
@@ -35,16 +32,16 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  setSubmitAction(element, id) {
+  setSubmitData(element, id) {
     this._element = element;
     this._id = id;
   }
 
   renderLoading(isLoading) {
     if (isLoading) {
-      this._popup.querySelector(".popup__button").value = "Saving...";
+      this._button.value = "Saving...";
     } else {
-      this._popup.querySelector(".popup__button").value = this._buttonValue;
+      this._button.value = this._buttonValue;
     }
   }
 

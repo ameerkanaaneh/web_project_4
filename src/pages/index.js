@@ -42,6 +42,7 @@ const elementsSection = new Section(
 const userInfo = new UserInfo({
   userNameSelector: ".profile__name",
   userJobSelector: ".profile__interest",
+  userAvatarSelector: ".profile__image",
 });
 
 const confirmDeletePopup = new PopupWithForm(
@@ -77,9 +78,8 @@ const cardFormValidator = new FormValidator(settings, cardPopupForm);
 cardFormValidator.enableValidation();
 
 // avatar form validator
-const avatartFormValidator = new FormValidator(settings, avatarPopupForm);
-avatartFormValidator.enableValidation();
-avatartFormValidator.disableButton();
+const avatarFormValidator = new FormValidator(settings, avatarPopupForm);
+avatarFormValidator.enableValidation();
 
 // profile form validator
 const profileFormValidator = new FormValidator(settings, profilePopupForm);
@@ -122,15 +122,28 @@ function handleCardFormSubmit(data) {
       renderCard(card);
       cardPopup.closePopup();
     })
+    .catch((err) => console.log(err))
     .finally(() => cardPopup.renderLoading(false));
 }
 
 // like click handler
-function handleLikeClick(id, liked, updateCard) {
+function handleLikeClick(id, liked, updateCard, likeButton) {
   if (liked) {
-    api.unlikeCard(id).then((data) => updateCard(data.likes.length));
+    api
+      .unlikeCard(id)
+      .then((data) => {
+        likeButton.classList.toggle("element__like_active");
+        updateCard(data.likes.length);
+      })
+      .catch((err) => console.log(err));
   } else {
-    api.likeCard(id).then((data) => updateCard(data.likes.length));
+    api
+      .likeCard(id)
+      .then((data) => {
+        likeButton.classList.toggle("element__like_active");
+        updateCard(data.likes.length);
+      })
+      .catch((err) => console.log(err));
   }
 }
 
@@ -145,6 +158,7 @@ function handleProfileFormSubmit(data) {
       userInfo.setUserInfo(res.name, res.about, res._id, res.avatar);
       profilePopup.closePopup();
     })
+    .catch((err) => console.log(err))
     .finally(() => profilePopup.renderLoading(false));
 }
 // delete a card
@@ -166,7 +180,7 @@ function handleCardClick(src, name) {
 
 // open confirm popup
 function handleDeleteIconClick(element, id) {
-  confirmDeletePopup.setSubmitAction(element, id);
+  confirmDeletePopup.setSubmitData(element, id);
   confirmDeletePopup.openPopup();
 }
 
@@ -193,31 +207,21 @@ function fillProfileInputs() {
 
 profileOverlayContainer.addEventListener("click", () => {
   avatarPopup.openPopup();
+  avatarFormValidator.disableButton();
 });
 
-api.loadData();
-// set userInfo from the server response
-api
-  .loadUserInfo()
-  .then((result) =>
-    userInfo.setUserInfo(result.name, result.about, result._id, result.avatar)
-  )
-  .catch((err) => console.log(err));
-
-// set initialCards based on the server response
-api
-  .getInitialCards()
-  .then((result) => {
-    const elementsSection = new Section(
-      {
-        items: result,
-        renderer: (cardItem) => {
-          renderCard(cardItem);
-        },
-      },
-      ".elements"
+Promise.all([api.loadUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    // set userInfo from the server response
+    userInfo.setUserInfo(
+      userData.name,
+      userData.about,
+      userData._id,
+      userData.avatar
     );
-    // to add markup to the dom
-    elementsSection.renderItems();
+    // set initialCards based on the server response
+    elementsSection.renderItems(cards);
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+  });

@@ -38,11 +38,11 @@ export default class Card {
 
   _handleLikeClick(evt) {
     evt.preventDefault();
-    evt.target.classList.toggle("element__like_active");
     this._handleHeartClick(
       this._cardId,
-      !evt.target.classList.contains("element__like_active"),
-      this._updateCard.bind(this)
+      evt.target.classList.contains("element__like_active"),
+      this._updateCard.bind(this),
+      evt.target
     );
   }
 
