@@ -7,10 +7,6 @@ class PopupWithImage extends Popup {
     this._popupNameElement = this._popup.querySelector(".popup__name");
   }
 
-  closePopup() {
-    super.closePopup();
-  }
-
   openPopup(src, name) {
     super.openPopup();
     this._addImageAndCaption(src, name);

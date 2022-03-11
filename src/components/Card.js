@@ -41,8 +41,7 @@ export default class Card {
     this._handleHeartClick(
       this._cardId,
       evt.target.classList.contains("element__like_active"),
-      this._updateCard.bind(this),
-      evt.target
+      this._updateCard.bind(this)
     );
   }
 
@@ -92,6 +91,7 @@ export default class Card {
   }
   _updateCard(likeNum) {
     this._likesNum = likeNum;
+    this._likeElement.classList.toggle("element__like_active");
     this._likesNumElement.textContent = this._likesNum;
   }
 }

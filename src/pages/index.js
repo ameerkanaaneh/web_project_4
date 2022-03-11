@@ -127,12 +127,11 @@ function handleCardFormSubmit(data) {
 }
 
 // like click handler
-function handleLikeClick(id, liked, updateCard, likeButton) {
+function handleLikeClick(id, liked, updateCard) {
   if (liked) {
     api
       .unlikeCard(id)
       .then((data) => {
-        likeButton.classList.toggle("element__like_active");
         updateCard(data.likes.length);
       })
       .catch((err) => console.log(err));
@@ -140,7 +139,6 @@ function handleLikeClick(id, liked, updateCard, likeButton) {
     api
       .likeCard(id)
       .then((data) => {
-        likeButton.classList.toggle("element__like_active");
         updateCard(data.likes.length);
       })
       .catch((err) => console.log(err));
